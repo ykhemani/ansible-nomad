@@ -18,7 +18,7 @@ This role requires a Debian, RHEL, or Ubuntu distribution; the role is tested
 with the following specific software versions:
 
 * Ansible: 2.3.0.0
-* nomad: 0.7.0
+* nomad: 0.7.1
 * CentOS: 7
 * Debian: 8
 * RHEL: 7
@@ -35,7 +35,7 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_version`
 
 - Nomad version to install
-- Default value: **0.7.0**
+- Default value: **0.7.1**
 
 ### `nomad_architecture_map`
 
@@ -85,8 +85,34 @@ The role defines most of its variables in `defaults/main.yml`:
 
 ### `nomad_log_dir`
 
-- Nomad log path
+- Nomad log directory
 - Default value: `/var/log/nomad`
+  - Override with `NOMAD_LOG_DIR` environment variable
+
+### `nomad_log_file`
+
+- Log file for use in rsyslogd configuration on Linux.
+  - Override with `NOMAD_LOG_FILE` environment variable
+- Default Linux value: `nomad.log`
+
+### `nomad_syslog_facility`
+
+- Syslog facility as defined in [syslog_facility](https://www.nomadproject.io/docs/agent/configuration/index.html#syslog_facility)
+  - Override with `NOMAD_SYSLOG_FACILITY` environment variable
+- Default Linux value: *local1*
+
+### `syslog_user`
+
+- Owner of `rsyslogd` process on Linux. `nomad_log_dir`'s ownership is set to this user on Linux.
+  - Override with `SYSLOG_USER` environment variable
+- Default Linux value: *syslog*
+
+
+### `syslog_group`
+
+- Group of user running `rsyslogd` process on Linux. `nomad_log_dir`'s group ownership is set to this group on Linux.
+  - Override with `SYSLOG_GROUP` environment variable
+- Default value: *adm*
 
 ### `nomad_run_dir`
 

@@ -1,0 +1,15 @@
+---
+# File: syslog.yml - rsyslogd config for Nomad logging
+
+- name: Install rsyslogd config
+  template:
+    src: rsyslogd_00-nomad.conf.j2
+    dest: /etc/rsyslog.d/00-nomad.conf
+    owner: root
+    group: root
+    mode: 0444
+  when:
+    - nomad_syslog_enable | bool
+  notify:
+    - restart rsyslog
+    - restart nomad

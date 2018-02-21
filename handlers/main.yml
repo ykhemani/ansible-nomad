@@ -3,3 +3,7 @@
 
 - name: restart nomad
   service: name=nomad state=restarted
+
+- name: restart rsyslog
+  import_tasks: restart_rsyslog.yml
+

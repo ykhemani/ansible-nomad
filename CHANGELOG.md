@@ -274,3 +274,8 @@
 - Restart service when modified (thanks @jsecchiero)
 - Enable debian > 6.3 (thanks @jsecchiero)
 - Update documentation (thanks @jsecchiero)
+
+## v1.7.8
+
+- Nomad version 0.7.1
+- Add support for setting syslog facility and syslog file

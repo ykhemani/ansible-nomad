@@ -5,7 +5,7 @@
 nomad_debug: no
 
 ### Package
-nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.7.0', true) }}"
+nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.7.1', true) }}"
 nomad_architecture_map:
   amd64: amd64
   x86_64: amd64
@@ -23,7 +23,8 @@ nomad_bin_dir: "/usr/local/bin"
 nomad_config_dir: "/etc/nomad.d"
 nomad_data_dir: "/var/nomad"
 nomad_lockfile: "/var/lock/subsys/nomad"
-nomad_log_dir: "/var/log/nomad"
+nomad_log_dir: "{{ lookup('env','NOMAD_LOG_DIR') | default('/var/log/nomad', true) }}"
+nomad_log_file: "{{ lookup('env','NOMAD_LOG_FILE') | default('nomad.log', true) }}"
 nomad_run_dir: "/var/run/nomad"
 
 ### System user and group
@@ -32,11 +33,17 @@ nomad_user: "root"
 nomad_manage_group: no
 nomad_group: "bin"
 
+### Log user, group, facility
+syslog_user: "{{ lookup('env','SYSLOG_USER') | default('syslog', true) }}"
+syslog_group: "{{ lookup('env','SYSLOG_GROUP') | default('adm', true) }}"
+nomad_log_level: "INFO"
+nomad_log_level: "{{ lookup('env','NOMAD_LOG_LEVEL') | default('INFO', true) }}"
+nomad_syslog_enable: "{{ lookup('env','NOMAD_SYSLOG_ENABLE') | default(true, true) }}"
+nomad_syslog_facility: "{{ lookup('env','NOMAD_SYSLOG_FACILITY') | default('local1', true) }}"
+
 ### Nomad settings
 nomad_datacenter: "dc1"
 nomad_region: "global"
-nomad_log_level: "INFO"
-nomad_syslog_enable: yes
 nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
 nomad_node_name: "{{ inventory_hostname_short }}"
 nomad_node_role: "{{ lookup('env','NOMAD_NODE_ROLE') | default('client', true) }}"

@@ -46,7 +46,22 @@
     group: "{{ nomad_group}}"
   with_items:
     - "{{ nomad_data_dir }}"
+
+- name: Create log directory
+  file:
+    dest: "{{ item }}"
+    state: directory
+    owner: "{{ syslog_user }}"
+    group: "{{ syslog_group }}"
+    recurse: yes
+  with_items:
     - "{{ nomad_log_dir }}"
+  when: 
+    - nomad_syslog_enable == true
+
+- name: Create rsyslogd configuration
+  import_tasks: syslog.yml
+
 
 - name: Create config directory
   file:
