@@ -36,7 +36,6 @@ nomad_group: "bin"
 ### Log user, group, facility
 syslog_user: "{{ lookup('env','SYSLOG_USER') | default('syslog', true) }}"
 syslog_group: "{{ lookup('env','SYSLOG_GROUP') | default('adm', true) }}"
-nomad_log_level: "INFO"
 nomad_log_level: "{{ lookup('env','NOMAD_LOG_LEVEL') | default('INFO', true) }}"
 nomad_syslog_enable: "{{ lookup('env','NOMAD_SYSLOG_ENABLE') | default(true, true) }}"
 nomad_syslog_facility: "{{ lookup('env','NOMAD_SYSLOG_FACILITY') | default('local1', true) }}"
